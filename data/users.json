@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "efc421e9-8c17-493a-9d3b-71199cd3a4d9",
+    "username": "admin",
+    "email": "admin@portfolio.local",
+    "passwordHash": "$2b$10$CVXB2uh3lRSUSr0gmQNd/uzYguyh86ePyCAA/y2WwTcInYxqNkML.",
+    "role": "admin",
+    "createdAt": "2026-03-23T16:50:16.258Z",
+    "updatedAt": "2026-03-23T16:50:16.258Z"
+  }
+]

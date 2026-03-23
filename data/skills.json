@@ -16,5 +16,14 @@
     "visible": true,
     "createdAt": "2026-03-23T16:28:48.903Z",
     "updatedAt": "2026-03-23T16:28:48.903Z"
+  },
+  {
+    "id": "ea5c74dc-9d60-4c93-b65f-39ce4ecb7828",
+    "name": "Python",
+    "level": "Intermediate",
+    "category": "Backend",
+    "visible": true,
+    "createdAt": "2026-03-23T16:53:32.627Z",
+    "updatedAt": "2026-03-23T16:53:32.627Z"
   }
 ]
