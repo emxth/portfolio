@@ -5,12 +5,14 @@ const {
   updateSkill,
   deleteSkill,
 } = require("../controllers/skills.controller");
+const { protect } = require("../middleware/auth.middleware");
 
 const router = express.Router();
 
 router.get("/", getSkills);
-router.post("/", createSkill);
-router.put("/:id", updateSkill);
-router.delete("/:id", deleteSkill);
+
+router.post("/", protect, createSkill);
+router.put("/:id", protect, updateSkill);
+router.delete("/:id", protect, deleteSkill);
 
 module.exports = router;
