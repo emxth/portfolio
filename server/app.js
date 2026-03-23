@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const path = require("path");
 
+const authRoutes = require("./routes/auth.routes");
 const projectRoutes = require("./routes/projects.routes");
 const skillRoutes = require("./routes/skills.routes");
 const experienceRoutes = require("./routes/experience.routes");
@@ -23,6 +24,7 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, message: "API is healthy" });
 });
 
+app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/experience", experienceRoutes);
