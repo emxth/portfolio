@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": "97e2ea59-8eb0-414d-994a-cbbb8754f2ad",
+    "name": "React",
+    "level": "Intermediate",
+    "category": "Frontend",
+    "visible": true,
+    "createdAt": "2026-03-23T16:28:35.587Z",
+    "updatedAt": "2026-03-23T16:28:35.588Z"
+  },
+  {
+    "id": "43fedebd-9668-429c-952b-7ae27f054f53",
+    "name": "Node.js",
+    "level": "Intermediate",
+    "category": "Backend",
+    "visible": true,
+    "createdAt": "2026-03-23T16:28:48.903Z",
+    "updatedAt": "2026-03-23T16:28:48.903Z"
+  }
+]

@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "8e54b655-b028-430d-8958-70ab29c88b3f",
+    "title": "Portfolio CMS",
+    "description": "Dynamic portfolio with admin",
+    "techStack": [
+      "React",
+      "Node",
+      "Express"
+    ],
+    "githubUrl": "https://github.com/your/repo",
+    "liveUrl": "",
+    "image": "/uploads/project1.png",
+    "featured": true,
+    "visible": true,
+    "createdAt": "2026-03-23T15:58:05.513Z",
+    "updatedAt": "2026-03-23T15:58:05.513Z"
+  }
+]
