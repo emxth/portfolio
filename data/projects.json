@@ -10,10 +10,29 @@
     ],
     "githubUrl": "https://github.com/your/repo",
     "liveUrl": "",
-    "image": "/uploads/project1.png",
+    "image": "/uploads/1774459115049-670605425.png",
     "featured": true,
     "visible": true,
     "createdAt": "2026-03-23T15:58:05.513Z",
-    "updatedAt": "2026-03-23T15:58:05.513Z"
+    "updatedAt": "2026-03-25T17:18:35.071Z"
+  },
+  {
+    "id": "a6a44a03-4eb3-4fe3-9bfd-5020db72e55c",
+    "title": "Project 2",
+    "description": "Sample project with hallow world and beautiful frontend.",
+    "techStack": [
+      "React",
+      "MSSQL",
+      ".NET CORE MVC",
+      "Oracle",
+      "Python"
+    ],
+    "githubUrl": "https://github.com/your/repo",
+    "liveUrl": "https://www.google.com",
+    "image": "/uploads/1774459068889-948660297.png",
+    "featured": true,
+    "visible": true,
+    "createdAt": "2026-03-25T17:17:48.892Z",
+    "updatedAt": "2026-03-25T17:18:47.265Z"
   }
 ]

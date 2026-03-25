@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import api from "../../api/axios";
 import SectionWrapper from "../SectionWrapper";
 import { motion } from "framer-motion";
@@ -18,42 +18,69 @@ export default function SkillsSection() {
     load();
   }, []);
 
-  const grouped = skills.reduce((acc, s) => {
-    const cat = s.category || "Other";
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(s);
-    return acc;
-  }, {});
+  const grouped = useMemo(() => {
+    return skills.reduce((acc, s) => {
+      const cat = s.category || "Other";
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(s);
+      return acc;
+    }, {});
+  }, [skills]);
+
+  const categories = Object.entries(grouped);
 
   return (
     <SectionWrapper id="skills" alt>
-      <h2 className="text-3xl md:text-4xl font-display font-bold mb-10">Skills</h2>
+      <div className="max-w-3xl">
+        <h2 className="text-3xl md:text-4xl font-display font-bold section-title">
+          Skills
+        </h2>
+        <p className="mt-3 text-muted-foreground text-lg">
+          A quick overview of the tools and technologies I use to ship reliable products.
+        </p>
+      </div>
 
-      {Object.keys(grouped).length > 0 ? (
-        <div className="space-y-8">
-          {Object.entries(grouped).map(([category, items]) => (
-            <div key={category}>
-              <h3 className="text-sm uppercase tracking-wider text-muted-foreground mb-3 font-medium">{category}</h3>
+      {categories.length > 0 ? (
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {categories.map(([category, items], groupIndex) => (
+            <motion.div
+              key={category}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: groupIndex * 0.06 }}
+              className="category-card shadow-soft transition"
+            >
+              <div className="flex items-center justify-between gap-3 mb-4">
+                <h3 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
+                  {category}
+                </h3>
+                <span className="text-xs text-muted-foreground">
+                  {items.length} {items.length === 1 ? "skill" : "skills"}
+                </span>
+              </div>
+
               <div className="flex flex-wrap gap-2">
                 {items.map((s, i) => (
                   <motion.span
                     key={s.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.03 }}
-                    className="px-4 py-2 rounded-full border border-border bg-card text-sm font-medium text-card-foreground hover:border-primary hover:text-primary transition-colors"
+                    transition={{ delay: i * 0.02 }}
+                    className="badge"
+                    title={s.level ? `${s.name} • ${s.level}` : s.name}
                   >
-                    {s.name}
-                    {s.level && <span className="ml-1 text-muted-foreground text-xs">• {s.level}</span>}
+                    <span className="text-sm font-medium">{s.name}</span>
+                    {s.level && <span className="badge-muted">• {s.level}</span>}
                   </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       ) : (
-        <p className="text-muted-foreground text-sm">No skills data available.</p>
+        <p className="mt-8 text-muted-foreground text-sm">No skills data available.</p>
       )}
     </SectionWrapper>
   );

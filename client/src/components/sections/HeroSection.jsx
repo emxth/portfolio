@@ -23,16 +23,16 @@ export default function HeroSection() {
           "linear-gradient(120deg, hsl(var(--hero-gradient-from)), hsl(var(--hero-gradient-to)))",
       }}
     >
-      <div className="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+      <div className="container grid lg:grid-cols-2 gap-10 items-center">
         {/* LEFT CONTENT */}
         <div className="relative z-10">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-hero-chip text-hero/80 text-xs md:text-sm tracking-wider uppercase"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-hero-chip bg-hero-chip text-hero/85 text-xs md:text-sm tracking-wider uppercase backdrop-blur"
           >
-            <Code2 className="h-3.5 w-3.5 text" />
+            <Code2 className="h-3.5 w-3.5" />
             Welcome to my portfolio
           </motion.p>
 
@@ -40,9 +40,12 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.6 }}
-            className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold text-hero leading-tight"
+            className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold text-hero leading-[1.05] tracking-tight"
           >
-            Hi, I’m <span className="text-white">{profile.name}</span>
+            Hi, I’m{" "}
+            <span className="text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.20)]">
+              {profile.name}
+            </span>
           </motion.h1>
 
           <motion.p
@@ -67,7 +70,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="mt-6 rounded-xl border border-hero-chip bg-hero-chip p-4 text-sm md:text-base text-hero/90 backdrop-blur"
+            className="mt-6 rounded-2xl glass shadow-soft p-4 md:p-5 text-sm md:text-base text-hero/90"
           >
             <p className="font-mono flex items-center gap-2">
               <Braces className="h-4 w-4" />
@@ -75,16 +78,27 @@ export default function HeroSection() {
             </p>
           </motion.div>
 
-          <motion.button
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            onClick={scrollToAbout}
-            className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full border border-primary-foreground/30 text-hero hover:bg-primary-foreground/12 transition cursor-pointer"
+            className="mt-8 flex flex-wrap items-center gap-3"
           >
-            Explore More
-            <ArrowDown className="h-4 w-4 animate-bounce" />
-          </motion.button>
+            <button
+              onClick={scrollToAbout}
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/15 text-white border border-white/25 hover:bg-white/20 transition cursor-pointer backdrop-blur shadow-soft"
+            >
+              Explore More
+              <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5 animate-bounce" />
+            </button>
+
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/25 text-white/90 hover:text-white hover:bg-white/10 transition backdrop-blur"
+            >
+              Contact
+            </a>
+          </motion.div>
         </div>
 
         {/* RIGHT IMAGE */}
@@ -95,14 +109,15 @@ export default function HeroSection() {
           className="relative z-10 flex justify-center lg:justify-end"
         >
           <div className="relative w-70 sm:w-85 md:w-97.5 lg:w-107.5">
-            <div className="absolute -inset-3 rounded-4xl bg-white/20 blur-2xl" />
-            <div className="relative overflow-hidden rounded-4xl border border-white/30 shadow-2xl">
+            <div className="absolute -inset-4 rounded-[2.5rem] bg-white/20 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/25 shadow-2xl">
               <img
                 src={profile.image}
                 alt="Emith Arachchi"
-                className="w-full h-105 md:h-125 object-cover grayscale"
+                className="w-full h-105 md:h-125 object-cover grayscale contrast-[1.05]"
               />
             </div>
+            <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] ring-1 ring-white/20" />
           </div>
         </motion.div>
       </div>

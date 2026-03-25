@@ -22,9 +22,9 @@ export default function ThemeToggle() {
 
   return (
     <motion.button
-      whileTap={{ scale: 0.9 }}
+      whileTap={{ scale: 0.92 }}
       onClick={() => setDark((p) => !p)}
-      className="p-2 rounded-lg bg-card hover:bg-accent transition-colors cursor-pointer"
+      className="toggle-btn p-2 rounded-xl cursor-pointer"
       aria-label="Toggle theme"
     >
       {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}

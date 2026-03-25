@@ -17,9 +17,7 @@ export default function PortfolioNavbar() {
   const [activeHref, setActiveHref] = useState("#home");
 
   useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 16);
-    };
+    const onScroll = () => setIsScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -36,9 +34,7 @@ export default function PortfolioNavbar() {
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
-        if (visible[0]) {
-          setActiveHref(`#${visible[0].target.id}`);
-        }
+        if (visible[0]) setActiveHref(`#${visible[0].target.id}`);
       },
       { threshold: [0.3, 0.6, 0.9], rootMargin: "-80px 0px -30% 0px" }
     );
@@ -58,39 +54,35 @@ export default function PortfolioNavbar() {
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 250, damping: 24 }}
-        className={`mx-auto backdrop-blur-md transition-all duration-300 ${
-          isScrolled
-            ? "rounded-4xl shadow-lg bg-card/90 max-w-6xl"
-            : "rounded-none bg-card/70"
+        className={`mx-auto nav-shell transition-all duration-300 ${
+          isScrolled ? "rounded-3xl max-w-6xl" : "rounded-none"
         }`}
       >
-        <div className="px-4 py-1 flex items-center justify-center">
-          <nav className="hidden md:flex items-center gap-2">
+        <div className="px-4 py-2 flex items-center justify-center">
+          <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => {
               const isActive = activeHref === item.href;
               return (
                 <button
                   key={item.href}
                   onClick={() => scrollTo(item.href)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-foreground hover:bg-secondary hover:text-foreground hover:underline underline-offset-4"
-                  }`}
+                  className={`nav-link ${isActive ? "nav-link-active" : ""}`}
                 >
                   {item.label}
                 </button>
               );
             })}
-            <ThemeToggle />
+            <div className="ml-1">
+              <ThemeToggle />
+            </div>
           </nav>
 
-          {/* Mobile toggle */}
-          <div className="md:hidden flex items-center gap-2 justify-between w-full">
+          {/* Mobile */}
+          <div className="md:hidden flex items-center justify-between w-full">
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen((p) => !p)}
-              className="p-2 rounded-md hover:bg-secondary transition"
+              className="p-2 rounded-xl border border-border bg-card/70 hover:bg-accent transition"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -98,7 +90,6 @@ export default function PortfolioNavbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.nav
@@ -107,17 +98,15 @@ export default function PortfolioNavbar() {
               exit={{ height: 0, opacity: 0 }}
               className="md:hidden overflow-hidden border-t border-border"
             >
-              <div className="flex flex-col px-4 py-2 bg-card">
+              <div className="flex flex-col gap-2 px-4 py-3 bg-card/70">
                 {navItems.map((item) => {
                   const isActive = activeHref === item.href;
                   return (
                     <button
                       key={item.href}
                       onClick={() => scrollTo(item.href)}
-                      className={`py-2 px-2 rounded-md text-sm font-medium text-left transition ${
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-foreground hover:bg-secondary"
+                      className={`nav-mobile-link ${
+                        isActive ? "nav-mobile-link-active" : ""
                       }`}
                     >
                       {item.label}
