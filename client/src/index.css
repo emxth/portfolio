@@ -94,6 +94,8 @@ body {
 
 .bg-card { background-color: hsl(var(--card)); }
 .text-card-foreground { color: hsl(var(--card-foreground)); }
+.bg-card\/70 { background-color: hsl(var(--card) / 0.7); }
+.bg-card\/90 { background-color: hsl(var(--card) / 0.9); }
 
 .bg-popover { background-color: hsl(var(--popover)); }
 .text-popover-foreground { color: hsl(var(--popover-foreground)); }
