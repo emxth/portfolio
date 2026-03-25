@@ -40,7 +40,7 @@ export default function HeroSection() {
           {profile?.intro || "Loading..."}
         </motion.p>
         <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }} onClick={scrollToAbout}
-          className="mt-10 inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 transition-colors font-medium">
+          className="mt-10 inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 transition-colors font-medium cursor-pointer">
           Explore <ArrowDown className="h-4 w-4 animate-bounce" />
         </motion.button>
       </div>
