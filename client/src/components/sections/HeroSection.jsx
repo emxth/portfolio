@@ -1,18 +1,47 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Braces, Code2, FileText } from "lucide-react";
+import api from "../../api/axios";
 
 export default function HeroSection() {
-  const profile = {
-    name: "Emith Arachchi",
-    role: "Full-Stack Software Developer",
-    intro:
-      "I design and build scalable web applications with clean architecture, beautiful UI, and practical product thinking.",
+  const [profile, setProfile] = useState({
+    name: "",
+    role: "",
+    intro: "",
     image: "/profile-bw.jpg",
-  };
+    cvUrl: "",
+  });
+
+  const API_ORIGIN = import.meta.env.VITE_API_ORIGIN || "http://localhost:5000";
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const { data } = await api.get("/profile");
+        setProfile((prev) => ({
+          ...prev,
+          name: data?.name || prev.name,
+          role: data?.role || prev.role,
+          intro: data?.intro || prev.intro,
+          image: data?.image || prev.image, // if you later add profile image upload
+          cvUrl: data?.cvUrl || "",
+        }));
+      } catch {
+        // keep fallback defaults
+      }
+    };
+    loadProfile();
+  }, []);
 
   const scrollToAbout = () => {
-    document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+    const el = document.querySelector("#about");
+    if (!el) return;
+    const offset = 90;
+    const y = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: y, behavior: "smooth" });
   };
+
+  const cvHref = profile.cvUrl ? `${API_ORIGIN}${profile.cvUrl}` : "";
 
   return (
     <section
@@ -54,7 +83,9 @@ export default function HeroSection() {
             transition={{ delay: 0.4 }}
             className="mt-3 text-lg md:text-xl text-hero/90 font-medium"
           >
-            {"<"}{profile.role} {" />"}
+            {"<"}
+            {profile.role}
+            {" />"}
           </motion.p>
 
           <motion.p
@@ -66,6 +97,7 @@ export default function HeroSection() {
             {profile.intro}
           </motion.p>
 
+          {/* keep as it is */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,7 +106,7 @@ export default function HeroSection() {
           >
             <p className="font-mono flex items-center gap-2">
               <Braces className="h-4 w-4" />
-              {"{ build: \"fast\", design: \"clean\", mindset: \"product\" }"}
+              {'{ build: "fast", design: "clean", mindset: "product" }'}
             </p>
           </motion.div>
 
@@ -96,15 +128,12 @@ export default function HeroSection() {
               Contact
             </a>
 
-            <a
-              href="C:\Users\Public\Documents\portfolio\uploads\cv-randiv.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="hero-btn-ghost"
-            >
-              <FileText className="h-4 w-4" />
-              View CV
-            </a>
+            {cvHref && (
+              <a href={cvHref} target="_blank" rel="noreferrer" className="hero-btn-ghost">
+                <FileText className="h-4 w-4" />
+                View CV
+              </a>
+            )}
           </motion.div>
         </div>
 
@@ -120,7 +149,7 @@ export default function HeroSection() {
             <div className="relative overflow-hidden rounded-[2.5rem] border border-white/25 shadow-2xl">
               <img
                 src={profile.image}
-                alt="Emith Arachchi"
+                alt={profile.name}
                 className="w-full h-105 md:h-125 object-cover grayscale contrast-[1.05]"
               />
             </div>
@@ -129,7 +158,6 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* background glows */}
       <div className="pointer-events-none absolute top-0 -left-30 w-85 h-85 bg-white/20 blur-3xl rounded-full" />
       <div className="pointer-events-none absolute -bottom-20 -right-20 w-65 h-65 bg-sky-200/30 blur-3xl rounded-full" />
     </section>
