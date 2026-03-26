@@ -14,11 +14,22 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (_, file, cb) => {
+const imageFilter = (_, file, cb) => {
   if (file.mimetype.startsWith("image/")) cb(null, true);
   else cb(new Error("Only image files are allowed"));
 };
 
-const upload = multer({ storage, fileFilter });
+const cvFilter = (_, file, cb) => {
+  const allowed = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+  if (allowed.includes(file.mimetype)) cb(null, true);
+  else cb(new Error("Only PDF/DOC/DOCX files are allowed"));
+};
 
-module.exports = { upload };
+const uploadImage = multer({ storage, fileFilter: imageFilter });
+const uploadCv = multer({ storage, fileFilter: cvFilter });
+
+module.exports = { uploadImage, uploadCv };
