@@ -2,16 +2,34 @@ import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import SectionWrapper from "../SectionWrapper";
 import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Mail, Phone } from "lucide-react";
 
 export default function AboutSection() {
   const [experience, setExperience] = useState([]);
+  const [profile, setProfile] = useState({
+    about: "",
+    linkedin: "",
+    github: "",
+    contactNo: "",
+    email: "",
+  });
 
   useEffect(() => {
     const load = async () => {
       try {
-        const { data } = await api.get("/experience");
-        setExperience(data.filter((e) => e.visible !== false));
+        const [{ data: expData }, { data: profileData }] = await Promise.all([
+          api.get("/experience"),
+          api.get("/profile"),
+        ]);
+
+        setExperience((expData || []).filter((e) => e.visible !== false));
+        setProfile({
+          about: profileData?.about || "",
+          linkedin: profileData?.linkedin || "",
+          github: profileData?.github || "",
+          contactNo: profileData?.contactNo || "",
+          email: profileData?.email || "",
+        });
       } catch {
         setExperience([]);
       }
@@ -26,8 +44,47 @@ export default function AboutSection() {
           About Me
         </h2>
         <p className="text-muted-foreground text-lg mt-3">
-          I build scalable full-stack apps with strong focus on UX, APIs, and maintainable code.
+          {profile.about ||
+            "I build scalable full-stack apps with strong focus on UX, APIs, and maintainable code."}
         </p>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {profile.linkedin && (
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="link-btn"
+            >
+              LinkedIn
+            </a>
+          )}
+
+          {profile.github && (
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="link-btn"
+            >
+              GitHub
+            </a>
+          )}
+
+          {profile.email && (
+            <a href={`mailto:${profile.email}`} className="link-btn">
+              <Mail className="h-4 w-4" />
+              Email
+            </a>
+          )}
+
+          {profile.contactNo && (
+            <a href={`tel:${profile.contactNo}`} className="link-btn">
+              <Phone className="h-4 w-4" />
+              {profile.contactNo}
+            </a>
+          )}
+        </div>
       </div>
 
       {experience.length > 0 && (
