@@ -45,8 +45,17 @@ export default function PortfolioNavbar() {
 
   const scrollTo = (href) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+
+    // wait mobile menu close animation
+    setTimeout(() => {
+      const el = document.querySelector(href);
+      if (!el) return;
+
+      const headerOffset = 92;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }, 180);
   };
 
   return (
@@ -54,9 +63,8 @@ export default function PortfolioNavbar() {
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 250, damping: 24 }}
-        className={`mx-auto nav-shell transition-all duration-300 ${
-          isScrolled ? "rounded-3xl max-w-6xl" : "rounded-none"
-        }`}
+        className={`mx-auto nav-shell transition-all duration-300 ${isScrolled ? "rounded-3xl max-w-6xl" : "rounded-2xl max-w-6xl"
+          }`}
       >
         <div className="px-4 py-2 flex items-center justify-center">
           <nav className="hidden md:flex items-center gap-1.5">
@@ -105,9 +113,8 @@ export default function PortfolioNavbar() {
                     <button
                       key={item.href}
                       onClick={() => scrollTo(item.href)}
-                      className={`nav-mobile-link ${
-                        isActive ? "nav-mobile-link-active" : ""
-                      }`}
+                      className={`nav-mobile-link ${isActive ? "nav-mobile-link-active" : ""
+                        }`}
                     >
                       {item.label}
                     </button>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Braces, Code2 } from "lucide-react";
+import { ArrowDown, Braces, Code2, FileText } from "lucide-react";
 
 export default function HeroSection() {
   const profile = {
@@ -86,17 +86,24 @@ export default function HeroSection() {
           >
             <button
               onClick={scrollToAbout}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/15 text-white border border-white/25 hover:bg-white/20 transition cursor-pointer backdrop-blur shadow-soft"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/70 text-slate-900 border border-slate-300/70 hover:bg-white transition cursor-pointer backdrop-blur shadow-soft font-semibold"
             >
               Explore More
               <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5 animate-bounce" />
             </button>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/25 text-white/90 hover:text-white hover:bg-white/10 transition backdrop-blur"
-            >
+            <a href="#contact" className="hero-btn-ghost">
               Contact
+            </a>
+
+            <a
+              href="C:\Users\Public\Documents\portfolio\uploads\cv-randiv.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="hero-btn-ghost"
+            >
+              <FileText className="h-4 w-4" />
+              View CV
             </a>
           </motion.div>
         </div>
