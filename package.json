@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
     "build": "npm run build --prefix client",
-    "start": "npm run start --prefix server",
-    "prod": "npm run build && NODE_ENV=production npm run start"
+    "start": "npm run start --prefix server"
   },
   "keywords": [],
   "author": "",
