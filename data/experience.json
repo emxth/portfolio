@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "f68693e1-8119-44c4-af1a-2b29ee9082ac",
+    "role": "Software Intern",
+    "company": "XYZ Technologies",
+    "duration": "Jan 2025 - Jun 2025",
+    "description": "Built and optimized REST APIs using Node.js and Express.",
+    "visible": true,
+    "createdAt": "2026-03-23T16:29:17.537Z",
+    "updatedAt": "2026-03-23T16:29:17.537Z"
+  },
+  {
+    "id": "3d35aa85-a812-4ac7-b03d-ada446bba9f4",
+    "role": "Freelance Web Developer",
+    "company": "Self-Employed",
+    "duration": "2024 - Present",
+    "description": "Developed responsive React applications and integrated backend APIs.",
+    "visible": true,
+    "createdAt": "2026-03-23T16:29:28.189Z",
+    "updatedAt": "2026-03-23T16:29:28.189Z"
+  }
+]

@@ -1,1 +1,13 @@
-[]
+{
+  "name": "Emith Arachchi",
+  "role": "Full-Stack Software Developer",
+  "intro": "I design and build scalable web applications with clean architecture, beautiful UI, and practical product thinking.",
+  "about": "Software Engineering undergraduate at Sri Lanka Institute of Information Technology (SLIIT) with hands-on experience developing financial data processing systems and backend automation tools during an internship at National Savings Bank. Skilled in Python, C#, SQL, and backend system development with experience in both Python-based automation systems and .NET Core MVC enterprise applications. with practical exposure to banking transaction systems including SLIPS, CEFT, and Lanka Clear. \n\nExperienced in building reconciliation engines, large-scale data processing pipelines, and high-availability utilities for financial systems. Strong background in database management, automation, and performance optimization for mission-critical financial applications. ",
+  "linkedin": "https://www.linkedin.com/in/emithr",
+  "github": "https://github.com/emxth",
+  "contactNo": "+94 70 566 5945",
+  "email": "randivemith.2003@gmail.com",
+  "updatedAt": "2026-03-26T09:42:32.148Z",
+  "createdAt": "2026-03-26T09:41:26.556Z",
+  "cvUrl": "/uploads/1774518105299-163925044.pdf"
+}
