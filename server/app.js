@@ -9,6 +9,7 @@ const projectRoutes = require("./routes/projects.routes");
 const skillRoutes = require("./routes/skills.routes");
 const experienceRoutes = require("./routes/experience.routes");
 const profileRoutes = require("./routes/profile.routes");
+const contactRoutes = require("./routes/contact.routes");
 const { notFound, errorHandler } = require("./middleware/error.middleware");
 
 const app = express();
@@ -35,6 +36,7 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/experience", experienceRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/contact", contactRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
