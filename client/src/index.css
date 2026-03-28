@@ -499,6 +499,7 @@ hero-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
   font-weight: 700;
   gap: 0.55rem;
   padding: 0.85rem 1.1rem;

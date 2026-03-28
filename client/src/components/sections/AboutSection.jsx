@@ -40,15 +40,15 @@ export default function AboutSection() {
   return (
     <SectionWrapper id="about">
       <div className="max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight">
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl font-display">
           About Me
         </h2>
-        <p className="text-muted-foreground text-lg mt-3">
+        <p className="mt-3 text-lg text-muted-foreground">
           {profile.about ||
             "I build scalable full-stack apps with strong focus on UX, APIs, and maintainable code."}
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mt-6">
           {profile.linkedin && (
             <a
               href={profile.linkedin}
@@ -73,14 +73,14 @@ export default function AboutSection() {
 
           {profile.email && (
             <a href={`mailto:${profile.email}`} className="link-btn">
-              <Mail className="h-4 w-4" />
+              <Mail className="w-4 h-4" />
               Email
             </a>
           )}
 
           {profile.contactNo && (
             <a href={`tel:${profile.contactNo}`} className="link-btn">
-              <Phone className="h-4 w-4" />
+              <Phone className="w-4 h-4" />
               {profile.contactNo}
             </a>
           )}
@@ -89,12 +89,7 @@ export default function AboutSection() {
 
       {experience.length > 0 && (
         <div className="mt-12">
-          <h3 className="text-xl font-display font-semibold mb-6 flex items-center gap-2">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary border border-border">
-              <Briefcase className="h-5 w-5 text-primary" />
-            </span>
-            Experience
-          </h3>
+          <h2 className="flex items-center gap-2 mt-2 mb-8 text-3xl font-bold font-display md:text-4xl">Experience</h2>
 
           <div className="space-y-4">
             {experience.map((e, i) => (
@@ -106,8 +101,8 @@ export default function AboutSection() {
                 transition={{ delay: i * 0.08 }}
                 className="group rounded-2xl border border-border bg-card p-6 shadow-soft hover:-translate-y-0.5 hover:shadow-2xl transition will-change-transform"
               >
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                  <h4 className="font-semibold text-card-foreground text-lg leading-snug">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                  <h4 className="text-lg font-semibold leading-snug text-card-foreground">
                     {e.role} <span className="text-primary">@</span> {e.company}
                   </h4>
                   <p className="text-sm text-muted-foreground whitespace-nowrap">
@@ -119,7 +114,7 @@ export default function AboutSection() {
                   {e.description}
                 </p>
 
-                <div className="mt-4 h-px w-full bg-border/70" />
+                <div className="w-full h-px mt-4 bg-border/70" />
               </motion.div>
             ))}
           </div>
