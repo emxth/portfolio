@@ -1,16 +1,14 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "main": "server/server.js",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
     "build": "npm run build --prefix client",
-    "start": "npm run start --prefix server"
+    "start": "node server/server.js",
+    "postinstall": "npm install --prefix client && npm install --prefix server"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "concurrently": "^9.2.1"
