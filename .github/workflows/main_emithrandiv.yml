@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -28,7 +28,7 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-      
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -51,13 +51,13 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B884E9EE35C24E3BB76485371CF77980 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3B189BA7337B40B28B4E8DF439BF26BA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3A9B124A7B134CA78812AC6682664C5C }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A1A4E7D8F0D84F80A29555FE5CDBA5FF }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6235DCC7D02F44EE9B56E7346498B82C }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F326D16F42934459969A00E2B503B466 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'emithrandiv'
           slot-name: 'Production'
