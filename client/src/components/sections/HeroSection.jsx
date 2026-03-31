@@ -70,7 +70,7 @@ export default function HeroSection() {
             className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold text-hero leading-[1.05] tracking-tight"
           >
             Hi, I’m{" "}
-            <span className="text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.20)]">
+            <span className="hero-name" data-text={profile.name}>
               {profile.name}
             </span>
           </motion.h1>
