@@ -123,7 +123,7 @@ export default function AboutSection() {
                   </p>
                 </div>
 
-                <p className="mt-3 text-sm md:text-[0.95rem] text-card-foreground/80 leading-relaxed">
+                <p className="mt-3 text-sm md:text-[0.95rem] text-card-foreground/80 whitespace-pre-line leading-relaxed">
                   {e.description}
                 </p>
 
