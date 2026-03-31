@@ -24,5 +24,25 @@
     "visible": true,
     "createdAt": "2026-03-23T15:58:05.513Z",
     "updatedAt": "2026-03-31T05:04:01.234Z"
+  },
+  {
+    "id": "7ee72029-6731-40f4-8edc-31497933eedb",
+    "title": "E-Waste Management System",
+    "description": "Built a full-stack MERN application to manage e-waste collection and recycling operations with role-based access. Implemented finance management modules including citizen payments, truck expenses, and reporting dashboards, along with REST APIs for handling collection workflows.",
+    "techStack": [
+      "MongoDB",
+      "Express",
+      "React",
+      "Node.js",
+      "MUI",
+      "REST API"
+    ],
+    "githubUrl": "https://github.com/emxth/greenguard-backend.git",
+    "liveUrl": "",
+    "image": "/uploads/1774936233838-120692047.png",
+    "featured": true,
+    "visible": true,
+    "createdAt": "2026-03-31T05:50:33.862Z",
+    "updatedAt": "2026-03-31T05:50:33.862Z"
   }
 ]

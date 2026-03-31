@@ -1,22 +1,12 @@
 [
   {
     "id": "f68693e1-8119-44c4-af1a-2b29ee9082ac",
-    "role": "Software Intern",
-    "company": "XYZ Technologies",
-    "duration": "Jan 2025 - Jun 2025",
-    "description": "Built and optimized REST APIs using Node.js and Express.",
+    "role": "Software Developer Intern",
+    "company": "National Savings Bank",
+    "duration": "Oct 2025 - Apr 2026",
+    "description": "Worked on mission-critical financial systems by developing data processing, reconciliation, and backend automation tools for banking transaction platforms (SLIPS, CEFT, Lanka Clear). Built high-performance Python modules for large-scale data ingestion, designed reconciliation engines to detect transaction mismatches, and implemented logging, validation, and failover mechanisms to ensure data integrity. Also contributed to maintaining and enhancing a .NET Core MVC web application by integrating MSSQL and Oracle queries, adding new features, and improving system reliability.",
     "visible": true,
     "createdAt": "2026-03-23T16:29:17.537Z",
     "updatedAt": "2026-03-23T16:29:17.537Z"
-  },
-  {
-    "id": "3d35aa85-a812-4ac7-b03d-ada446bba9f4",
-    "role": "Freelance Web Developer",
-    "company": "Self-Employed",
-    "duration": "2024 - Present",
-    "description": "Developed responsive React applications and integrated backend APIs.",
-    "visible": true,
-    "createdAt": "2026-03-23T16:29:28.189Z",
-    "updatedAt": "2026-03-23T16:29:28.189Z"
   }
 ]
