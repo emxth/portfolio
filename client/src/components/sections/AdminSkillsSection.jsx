@@ -81,8 +81,30 @@ export default function AdminSkillsSection() {
         <h2 className="text-xl font-semibold">{editingSkillId ? "Edit Skill" : "Add Skill"}</h2>
 
         <input className="p-2 border rounded" name="name" placeholder="Skill name (React, Node.js...)" value={skillForm.name} onChange={onSkillChange} required />
-        <input className="p-2 border rounded" name="level" placeholder="Beginner / Intermediate / Advanced" value={skillForm.level} onChange={onSkillChange} />
-        <input className="p-2 border rounded" name="category" placeholder="Frontend / Backend / DevOps" value={skillForm.category} onChange={onSkillChange} />
+        
+        <select
+          className="p-2 border rounded"
+          name="level"
+          value={skillForm.level}
+          onChange={onSkillChange}
+        >
+          <option value="">Select level</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+
+        <select
+          className="p-2 border rounded"
+          name="category"
+          value={skillForm.category}
+          onChange={onSkillChange}
+        >
+          <option value="General">General</option>
+          <option value="Frontend">Frontend</option>
+          <option value="Backend">Backend</option>
+          <option value="DevOps">DevOps</option>
+        </select>
 
         <label className="flex items-center gap-2">
           <input type="checkbox" name="visible" checked={skillForm.visible} onChange={onSkillChange} />
