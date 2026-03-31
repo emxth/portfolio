@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import api from "../../api/axios";
+import { toAssetUrl } from "../../api/url";
 import SectionWrapper from "../SectionWrapper";
 import { motion } from "framer-motion";
 import { ExternalLink, GitCompareArrows, Search, Image as ImageIcon, ChevronDown } from "lucide-react";
@@ -36,14 +37,6 @@ export default function ProjectsSection() {
     });
   }, [projects, q, tech]);
 
-  const apiUrl = import.meta.env.VITE_API_ORIGIN || "http://localhost:5000";
-
-  const getImageUrl = (imgPath) => {
-    if (!imgPath) return "";
-    if (imgPath.startsWith("http://") || imgPath.startsWith("https://")) return imgPath;
-    return `${apiUrl}${imgPath}`;
-  };
-
   return (
     <SectionWrapper id="projects">
       <div className="max-w-3xl">
@@ -79,7 +72,7 @@ export default function ProjectsSection() {
 
       <div className="grid gap-6 mt-8 md:grid-cols-2">
         {filtered.map((p, i) => {
-          const imageUrl = getImageUrl(p.image);
+          const imageUrl = toAssetUrl(p.image);
 
           return (
             <motion.article

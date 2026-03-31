@@ -10,7 +10,8 @@ export default function SkillsSection() {
     const load = async () => {
       try {
         const { data } = await api.get("/skills");
-        setSkills(data.filter((s) => s.visible !== false));
+        const safe = Array.isArray(data) ? data : [];
+        setSkills(safe.filter((s) => s.visible !== false));
       } catch {
         setSkills([]);
       }
@@ -32,16 +33,16 @@ export default function SkillsSection() {
   return (
     <SectionWrapper id="skills" alt>
       <div className="max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-display font-bold section-title">
+        <h2 className="text-3xl font-bold md:text-4xl font-display section-title">
           Skills
         </h2>
-        <p className="mt-3 text-muted-foreground text-lg">
+        <p className="mt-3 text-lg text-muted-foreground">
           A quick overview of the tools and technologies I use to ship reliable products.
         </p>
       </div>
 
       {categories.length > 0 ? (
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
+        <div className="grid gap-5 mt-10 md:grid-cols-2">
           {categories.map(([category, items], groupIndex) => (
             <motion.div
               key={category}
@@ -49,10 +50,10 @@ export default function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: groupIndex * 0.06 }}
-              className="category-card shadow-soft transition"
+              className="transition category-card shadow-soft"
             >
               <div className="flex items-center justify-between gap-3 mb-4">
-                <h3 className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
+                <h3 className="text-sm font-medium tracking-wider uppercase text-muted-foreground">
                   {category}
                 </h3>
                 <span className="text-xs text-muted-foreground">
@@ -80,7 +81,7 @@ export default function SkillsSection() {
           ))}
         </div>
       ) : (
-        <p className="mt-8 text-muted-foreground text-sm">No skills data available.</p>
+        <p className="mt-8 text-sm text-muted-foreground">No skills data available.</p>
       )}
     </SectionWrapper>
   );
