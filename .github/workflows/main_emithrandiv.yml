@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: "22.x"
 
+      # Install root dependencies (IMPORTANT)
+      - name: Install root dependencies
+        run: npm install
+
+      # Install server dependencies
       - name: Install server dependencies
         working-directory: ./server
         run: npm install
@@ -37,4 +42,4 @@ jobs:
         with:
           app-name: "emithrandiv"
           slot-name: "Production"
-          package: ./server
+          package: .
