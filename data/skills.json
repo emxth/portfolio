@@ -1,29 +1,330 @@
 [
   {
-    "id": "97e2ea59-8eb0-414d-994a-cbbb8754f2ad",
+    "id": "74133cb1-9977-4222-92ed-18c56658d85a",
+    "name": "JavaScript",
+    "level": "Intermediate",
+    "category": "Programming",
+    "visible": true,
+    "createdAt": "2026-03-31T06:40:40.924Z",
+    "updatedAt": "2026-03-31T09:30:05.164Z",
+    "icon": "javascript"
+  },
+  {
+    "id": "7f635f42-060a-4515-8022-14a227045c61",
     "name": "React",
     "level": "Intermediate",
     "category": "Frontend",
     "visible": true,
-    "createdAt": "2026-03-23T16:28:35.587Z",
-    "updatedAt": "2026-03-23T16:28:35.588Z"
+    "createdAt": "2026-03-31T06:41:55.866Z",
+    "updatedAt": "2026-03-31T09:32:22.170Z",
+    "icon": "react"
   },
   {
-    "id": "43fedebd-9668-429c-952b-7ae27f054f53",
+    "id": "3af10366-88ff-4bd3-a8ec-87a9a87d0a73",
     "name": "Node.js",
     "level": "Intermediate",
     "category": "Backend",
     "visible": true,
-    "createdAt": "2026-03-23T16:28:48.903Z",
-    "updatedAt": "2026-03-23T16:28:48.903Z"
+    "createdAt": "2026-03-31T06:43:34.480Z",
+    "updatedAt": "2026-03-31T09:32:38.869Z",
+    "icon": "nodejs"
   },
   {
-    "id": "ea5c74dc-9d60-4c93-b65f-39ce4ecb7828",
+    "id": "9f811b5d-ee7e-4336-942f-b780ef618dfc",
+    "name": "MongoDB",
+    "level": "Intermediate",
+    "category": "Database",
+    "visible": true,
+    "createdAt": "2026-03-31T06:45:47.467Z",
+    "updatedAt": "2026-03-31T09:32:50.787Z",
+    "icon": "mongodb"
+  },
+  {
+    "id": "64d909cf-da49-48d5-bc41-37245c40113a",
+    "name": "Pandas",
+    "level": "Intermediate",
+    "category": "Data Processing",
+    "visible": true,
+    "createdAt": "2026-03-31T06:04:02.703Z",
+    "updatedAt": "2026-03-31T06:04:02.703Z"
+  },
+  {
+    "id": "3476de5e-0d92-40b2-bfb2-66ff938fc9eb",
+    "name": "NumPy",
+    "level": "Intermediate",
+    "category": "Data Processing",
+    "visible": true,
+    "createdAt": "2026-03-31T06:04:18.037Z",
+    "updatedAt": "2026-03-31T06:04:18.037Z"
+  },
+  {
+    "id": "602996ba-1be1-4ff6-928b-ac75533fea36",
+    "name": "CSV Processing",
+    "level": "Advanced",
+    "category": "Data Processing",
+    "visible": true,
+    "createdAt": "2026-03-31T06:04:34.068Z",
+    "updatedAt": "2026-03-31T06:04:34.068Z"
+  },
+  {
+    "id": "7d87687c-7d72-41ed-b387-1fbb3025632c",
+    "name": "JSON Processing",
+    "level": "Advanced",
+    "category": "Data Processing",
+    "visible": true,
+    "createdAt": "2026-03-31T06:04:50.930Z",
+    "updatedAt": "2026-03-31T06:04:50.930Z"
+  },
+  {
+    "id": "a85b8905-9daa-41b3-b870-ce28ed190147",
+    "name": "Bulk Data Handling",
+    "level": "Intermediate",
+    "category": "Data Processing",
+    "visible": true,
+    "createdAt": "2026-03-31T06:05:05.886Z",
+    "updatedAt": "2026-03-31T06:05:05.886Z"
+  },
+  {
+    "id": "8f3c6aea-56ad-4d58-ac39-dd38dfe80458",
+    "name": "Git",
+    "level": "Intermediate",
+    "category": "Tools",
+    "visible": true,
+    "createdAt": "2026-03-31T06:06:12.492Z",
+    "updatedAt": "2026-03-31T06:06:12.492Z"
+  },
+  {
+    "id": "d9b2c0a4-b060-4552-8c45-5d40d65f82f1",
+    "name": "GitHub",
+    "level": "Advanced",
+    "category": "Tools",
+    "visible": true,
+    "createdAt": "2026-03-31T06:06:29.133Z",
+    "updatedAt": "2026-03-31T06:06:29.133Z"
+  },
+  {
+    "id": "c3df4006-7a18-4f15-b2be-71511ac875b4",
+    "name": "VS Code",
+    "level": "Advanced",
+    "category": "Tools",
+    "visible": true,
+    "createdAt": "2026-03-31T06:06:46.495Z",
+    "updatedAt": "2026-03-31T06:06:46.495Z"
+  },
+  {
+    "id": "ad988fb6-f423-4eb9-aa64-d3a67f18560d",
+    "name": "IntelliJ IDEA",
+    "level": "Intermediate",
+    "category": "Tools",
+    "visible": true,
+    "createdAt": "2026-03-31T06:07:04.280Z",
+    "updatedAt": "2026-03-31T06:07:04.280Z"
+  },
+  {
+    "id": "0285e8ed-af5b-4621-9a6e-06b58d96bb2f",
+    "name": "SQL Server Management Studio",
+    "level": "Intermediate",
+    "category": "Tools",
+    "visible": true,
+    "createdAt": "2026-03-31T06:07:37.671Z",
+    "updatedAt": "2026-03-31T06:07:37.671Z"
+  },
+  {
+    "id": "9257ae87-e564-49d2-b8ca-8aa8e8a8cdb6",
+    "name": "Financial Data Reconciliation",
+    "level": "Advanced",
+    "category": "Concepts",
+    "visible": true,
+    "createdAt": "2026-03-31T06:09:08.156Z",
+    "updatedAt": "2026-03-31T06:09:08.156Z"
+  },
+  {
+    "id": "a826ee0b-219a-4cea-83e3-cef5ccd02d2f",
+    "name": "Parallel Processing",
+    "level": "Intermediate",
+    "category": "Concepts",
+    "visible": true,
+    "createdAt": "2026-03-31T06:09:27.485Z",
+    "updatedAt": "2026-03-31T06:09:27.485Z"
+  },
+  {
+    "id": "95f70e7c-770c-4dc5-b72d-f23cd784a606",
+    "name": "Database Migration",
+    "level": "Advanced",
+    "category": "Concepts",
+    "visible": true,
+    "createdAt": "2026-03-31T06:09:50.130Z",
+    "updatedAt": "2026-03-31T06:09:50.130Z"
+  },
+  {
+    "id": "ae393b20-d4a6-48b4-b3b9-3770d43ae01c",
+    "name": "Automation Scripts",
+    "level": "Intermediate",
+    "category": "Concepts",
+    "visible": true,
+    "createdAt": "2026-03-31T06:10:10.579Z",
+    "updatedAt": "2026-03-31T06:10:10.579Z"
+  },
+  {
+    "id": "e33e64f9-b8d6-4796-b383-1214530cd8c2",
+    "name": "Logging Systems",
+    "level": "Advanced",
+    "category": "Concepts",
+    "visible": true,
+    "createdAt": "2026-03-31T06:10:31.219Z",
+    "updatedAt": "2026-03-31T06:10:31.219Z"
+  },
+  {
+    "id": "0a83a211-7f02-4e64-81fb-3521e53bad76",
+    "name": "SQL",
+    "level": "Intermediate",
+    "category": "Database",
+    "visible": true,
+    "createdAt": "2026-03-31T06:11:59.281Z",
+    "updatedAt": "2026-03-31T06:11:59.281Z"
+  },
+  {
+    "id": "e0106a6f-89ff-451d-84f8-1bc7bd26df30",
     "name": "Python",
+    "level": "Intermediate",
+    "category": "Programming",
+    "visible": true,
+    "createdAt": "2026-03-31T06:40:55.481Z",
+    "updatedAt": "2026-03-31T06:40:55.481Z"
+  },
+  {
+    "id": "c3d46509-fff1-4e32-bb0c-35b1d0da90ce",
+    "name": "Java",
+    "level": "Intermediate",
+    "category": "Programming",
+    "visible": true,
+    "createdAt": "2026-03-31T06:41:10.639Z",
+    "updatedAt": "2026-03-31T06:41:10.639Z"
+  },
+  {
+    "id": "ba773344-1d87-4d4f-9c02-c1ce92038b61",
+    "name": "C#",
+    "level": "Intermediate",
+    "category": "Programming",
+    "visible": true,
+    "createdAt": "2026-03-31T06:41:25.558Z",
+    "updatedAt": "2026-03-31T06:41:25.558Z"
+  },
+  {
+    "id": "28587f91-e15a-47e4-84d2-a05229d39019",
+    "name": "SQL",
+    "level": "Intermediate",
+    "category": "Programming",
+    "visible": true,
+    "createdAt": "2026-03-31T06:41:41.104Z",
+    "updatedAt": "2026-03-31T06:41:41.104Z"
+  },
+  {
+    "id": "1686299b-b1d8-4ad9-85ea-b337ed3d455e",
+    "name": "Tailwind CSS",
+    "level": "Intermediate",
+    "category": "Frontend",
+    "visible": true,
+    "createdAt": "2026-03-31T06:42:12.439Z",
+    "updatedAt": "2026-03-31T06:42:12.439Z"
+  },
+  {
+    "id": "9558f228-fdbe-4f72-a42f-a7b11fab485c",
+    "name": "MUI",
+    "level": "Intermediate",
+    "category": "Frontend",
+    "visible": true,
+    "createdAt": "2026-03-31T06:42:34.302Z",
+    "updatedAt": "2026-03-31T06:42:34.302Z"
+  },
+  {
+    "id": "07113a9d-7f71-4e08-b912-590dd0d672b2",
+    "name": "Bootstrap",
+    "level": "Intermediate",
+    "category": "Frontend",
+    "visible": true,
+    "createdAt": "2026-03-31T06:42:57.993Z",
+    "updatedAt": "2026-03-31T06:42:57.993Z"
+  },
+  {
+    "id": "46f9f6f2-c212-4d10-922f-39abd2030040",
+    "name": "Framer Motion",
+    "level": "Intermediate",
+    "category": "Frontend",
+    "visible": true,
+    "createdAt": "2026-03-31T06:43:16.365Z",
+    "updatedAt": "2026-03-31T06:43:16.365Z"
+  },
+  {
+    "id": "37c764e0-138a-4de0-9562-1b405a6a4cc0",
+    "name": "Express.js",
     "level": "Intermediate",
     "category": "Backend",
     "visible": true,
-    "createdAt": "2026-03-23T16:53:32.627Z",
-    "updatedAt": "2026-03-23T16:53:32.627Z"
+    "createdAt": "2026-03-31T06:43:52.022Z",
+    "updatedAt": "2026-03-31T06:43:52.022Z"
+  },
+  {
+    "id": "711b7819-5a34-4cb2-99dc-f27bbe0f409c",
+    "name": ".NET Core MVC",
+    "level": "Intermediate",
+    "category": "Backend",
+    "visible": true,
+    "createdAt": "2026-03-31T06:44:08.444Z",
+    "updatedAt": "2026-03-31T06:44:08.444Z"
+  },
+  {
+    "id": "4e00ba6e-1bed-43d4-b446-b8b629b257e5",
+    "name": "REST API Development",
+    "level": "Intermediate",
+    "category": "Backend",
+    "visible": true,
+    "createdAt": "2026-03-31T06:44:24.937Z",
+    "updatedAt": "2026-03-31T06:44:24.937Z"
+  },
+  {
+    "id": "0b0e5250-8259-414e-95d4-c1a696dce851",
+    "name": "JWT Authentication",
+    "level": "Intermediate",
+    "category": "Backend",
+    "visible": true,
+    "createdAt": "2026-03-31T06:45:03.368Z",
+    "updatedAt": "2026-03-31T06:45:03.368Z"
+  },
+  {
+    "id": "96760c2e-a37d-47be-8776-8284864d63d0",
+    "name": "MySQL",
+    "level": "Intermediate",
+    "category": "Database",
+    "visible": true,
+    "createdAt": "2026-03-31T06:46:02.088Z",
+    "updatedAt": "2026-03-31T06:46:02.088Z"
+  },
+  {
+    "id": "a0fa6e82-1c1f-48cc-a5bd-4c823e5bbfd2",
+    "name": "MS SQL Server",
+    "level": "Intermediate",
+    "category": "Database",
+    "visible": true,
+    "createdAt": "2026-03-31T06:46:19.671Z",
+    "updatedAt": "2026-03-31T06:46:19.671Z"
+  },
+  {
+    "id": "5383bfc0-5ea4-4e18-885d-acc74a3f46b3",
+    "name": "Oracle",
+    "level": "Intermediate",
+    "category": "Database",
+    "visible": true,
+    "createdAt": "2026-03-31T06:46:32.078Z",
+    "updatedAt": "2026-03-31T06:46:32.078Z"
+  },
+  {
+    "id": "08b043a9-cb17-4506-8e06-3d73ba986900",
+    "name": "SQLite",
+    "level": "Intermediate",
+    "category": "Database",
+    "visible": true,
+    "createdAt": "2026-03-31T06:46:47.937Z",
+    "updatedAt": "2026-03-31T06:46:47.937Z"
   }
 ]

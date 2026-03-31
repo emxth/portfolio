@@ -154,7 +154,7 @@ section[id] {
 }
 
 
-hero-btn {
+.hero-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -167,6 +167,7 @@ hero-btn {
   backdrop-filter: blur(8px);
   transition: all 160ms ease;
 }
+
 .hero-btn:hover {
   background: hsl(var(--hero-btn-hover-bg));
   transform: translateY(-1px);
@@ -185,9 +186,60 @@ hero-btn {
   backdrop-filter: blur(8px);
   transition: all 160ms ease;
 }
+
 .hero-btn-ghost:hover {
   background: hsl(var(--hero-btn-bg));
   color: hsl(var(--hero-btn-text));
+}
+
+.hero-name {
+  position: relative;
+  display: inline-block;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring)), hsl(var(--primary)));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 hsl(0 0% 100% / 0.12);
+  animation: heroNameShift 7s ease-in-out infinite;
+}
+
+.hero-name::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary)),
+    hsl(var(--ring)),
+    hsl(var(--primary))
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: blur(14px);
+  opacity: 0.55;
+  animation: heroNameShift 7s ease-in-out infinite;
+}
+
+.dark .hero-name::after {
+  opacity: 0.7;
+  filter: blur(16px);
+}
+
+@keyframes heroNameShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-name:hover::after {
+  opacity: 0.85;
 }
 
 
@@ -544,6 +596,169 @@ hero-btn {
   color: hsl(var(--accent-foreground));
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+
+/* ===== Skills decorative icons (around content) ===== */
+.skill-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* a safe centered area where we avoid placing icons */
+.skill-decor-safe {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 18%;
+  bottom: 12%;
+  border-radius: 2rem;
+}
+
+.skill-decor-icon {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  opacity: 0.22; /* more visible than before */
+  filter: grayscale(1) drop-shadow(0 10px 26px hsl(var(--foreground) / 0.18));
+  transform: translateZ(0);
+}
+
+.dark .skill-decor-icon {
+  opacity: 0.26;
+  filter: grayscale(1) brightness(1.15) drop-shadow(0 10px 26px hsl(0 0% 0% / 0.35));
+}
+
+/* soft floating */
+@keyframes floaty2 {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+
+/* ===== Boot Loader ===== */
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.boot-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 400px at 20% 20%, hsl(var(--primary) / 0.18), transparent 55%),
+    radial-gradient(700px 380px at 85% 70%, hsl(var(--ring) / 0.18), transparent 60%);
+  filter: blur(0px);
+  opacity: 1;
+}
+
+.boot-card {
+  position: relative;
+  width: min(720px, 100%);
+  border-radius: 1.5rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card) / 0.7);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 1px 0 hsl(var(--foreground) / 0.03),
+    0 24px 80px hsl(var(--foreground) / 0.16);
+  padding: 1.25rem 1.25rem 1.1rem;
+}
+
+.boot-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.boot-brand {
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.boot-status {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.boot-dot {
+  color: hsl(var(--primary));
+}
+
+.boot-bar {
+  margin-top: 0.85rem;
+  height: 10px;
+  border-radius: 9999px;
+  background: hsl(var(--muted));
+  border: 1px solid hsl(var(--border));
+  overflow: hidden;
+}
+
+.boot-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring)));
+  box-shadow: 0 14px 40px hsl(var(--primary) / 0.25);
+}
+
+.boot-meta {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.78rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.boot-terminal {
+  margin-top: 1rem;
+  border-radius: 1.1rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background) / 0.45);
+  padding: 0.95rem 1rem;
+}
+
+.boot-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.88rem;
+  color: hsl(var(--foreground) / 0.88);
+  line-height: 1.65;
+}
+
+.boot-prompt {
+  color: hsl(var(--primary));
+}
+
+.boot-cursor {
+  width: 10px;
+  height: 1.1em;
+  border-radius: 2px;
+  background: hsl(var(--foreground) / 0.7);
+  display: inline-block;
+  animation: bootBlink 900ms steps(1) infinite;
+}
+
+@keyframes bootBlink {
+  50% { opacity: 0; }
 }
 
 

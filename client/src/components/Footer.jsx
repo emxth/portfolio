@@ -8,9 +8,12 @@ export default function Footer() {
   });
 
   useEffect(() => {
+    let mounted = true;
+
     const loadProfileLinks = async () => {
       try {
         const { data } = await api.get("/profile");
+        if (!mounted) return;
         setLinks({
           github: data?.github || "https://github.com/emxth",
           linkedin: data?.linkedin || "https://linkedin.com",
@@ -21,6 +24,9 @@ export default function Footer() {
     };
 
     loadProfileLinks();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (

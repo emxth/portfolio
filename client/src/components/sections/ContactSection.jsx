@@ -14,6 +14,7 @@ export default function ContactSection() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (sending) return;
     setSending(true);
     try {
       await api.post("/contact", form);

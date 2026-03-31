@@ -3,11 +3,27 @@ const { readJson, writeJson } = require("../utils/jsonDb");
 
 const FILE = "skills.json";
 
+function toBool(value, fallback = true) {
+  if (value === undefined || value === null || value === "") return fallback;
+  if (typeof value === "boolean") return value;
+  if (typeof value === "string") {
+    const v = value.trim().toLowerCase();
+    if (v === "true") return true;
+    if (v === "false") return false;
+  }
+  return Boolean(value);
+}
+
+function normalizeText(value, fallback = "") {
+  if (value === undefined || value === null) return fallback;
+  return String(value).trim();
+}
+
 // Get all skills
 async function getSkills(req, res, next) {
   try {
     const skills = await readJson(FILE, []);
-    res.json(skills);
+    res.json(Array.isArray(skills) ? skills : []);
   } catch (err) {
     next(err);
   }
@@ -16,18 +32,25 @@ async function getSkills(req, res, next) {
 // Create a new skill
 async function createSkill(req, res, next) {
   try {
-    const { name, level, category, visible } = req.body;
-    if (!name) return res.status(400).json({ message: "name is required" });
+    const { name, icon, level, category, visible } = req.body;
+
+    const normalizedName = normalizeText(name);
+    if (!normalizedName) {
+      return res.status(400).json({ message: "name is required" });
+    }
 
     const skills = await readJson(FILE, []);
+    const now = new Date().toISOString();
+
     const newSkill = {
       id: uuidv4(),
-      name,
-      level: level || "",
-      category: category || "General",
-      visible: visible !== undefined ? Boolean(visible) : true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      name: normalizedName,
+      icon: normalizeText(icon, ""),
+      level: normalizeText(level, ""),
+      category: normalizeText(category, "General") || "General",
+      visible: toBool(visible, true),
+      createdAt: now,
+      updatedAt: now,
     };
 
     skills.push(newSkill);
@@ -42,19 +65,35 @@ async function createSkill(req, res, next) {
 async function updateSkill(req, res, next) {
   try {
     const { id } = req.params;
-    const updates = req.body;
+    const updates = req.body || {};
 
     const skills = await readJson(FILE, []);
     const index = skills.findIndex((s) => s.id === id);
     if (index === -1) return res.status(404).json({ message: "Skill not found" });
 
-    skills[index] = {
-      ...skills[index],
-      ...updates,
-      id: skills[index].id,
+    const current = skills[index];
+
+    const nextSkill = {
+      ...current,
+      ...(updates.name !== undefined ? { name: normalizeText(updates.name) } : {}),
+      ...(updates.icon !== undefined ? { icon: normalizeText(updates.icon, "") } : {}),
+      ...(updates.level !== undefined ? { level: normalizeText(updates.level, "") } : {}),
+      ...(updates.category !== undefined
+        ? { category: normalizeText(updates.category, "General") || "General" }
+        : {}),
+      ...(updates.visible !== undefined
+        ? { visible: toBool(updates.visible, current.visible !== false) }
+        : {}),
+      id: current.id,
+      createdAt: current.createdAt,
       updatedAt: new Date().toISOString(),
     };
 
+    if (!nextSkill.name) {
+      return res.status(400).json({ message: "name is required" });
+    }
+
+    skills[index] = nextSkill;
     await writeJson(FILE, skills);
     res.json(skills[index]);
   } catch (err) {

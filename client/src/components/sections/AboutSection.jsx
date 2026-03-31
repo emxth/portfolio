@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import SectionWrapper from "../SectionWrapper";
 import { motion } from "framer-motion";
-import { Briefcase, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 export default function AboutSection() {
   const [experience, setExperience] = useState([]);
@@ -15,6 +15,8 @@ export default function AboutSection() {
   });
 
   useEffect(() => {
+    let mounted = true;
+
     const load = async () => {
       try {
         const [{ data: expData }, { data: profileData }] = await Promise.all([
@@ -22,7 +24,11 @@ export default function AboutSection() {
           api.get("/profile"),
         ]);
 
-        setExperience((expData || []).filter((e) => e.visible !== false));
+        if (!mounted) return;
+
+        const safeExp = Array.isArray(expData) ? expData : [];
+        setExperience(safeExp.filter((e) => e.visible !== false));
+
         setProfile({
           about: profileData?.about || "",
           linkedin: profileData?.linkedin || "",
@@ -31,10 +37,15 @@ export default function AboutSection() {
           email: profileData?.email || "",
         });
       } catch {
+        if (!mounted) return;
         setExperience([]);
       }
     };
+
     load();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
@@ -89,7 +100,9 @@ export default function AboutSection() {
 
       {experience.length > 0 && (
         <div className="mt-12">
-          <h2 className="flex items-center gap-2 mt-2 mb-8 text-3xl font-bold font-display md:text-4xl">Experience</h2>
+          <h2 className="flex items-center gap-2 mt-2 mb-8 text-3xl font-bold font-display md:text-4xl">
+            Experience
+          </h2>
 
           <div className="space-y-4">
             {experience.map((e, i) => (
@@ -110,7 +123,7 @@ export default function AboutSection() {
                   </p>
                 </div>
 
-                <p className="mt-3 text-sm md:text-[0.95rem] text-card-foreground/80 leading-relaxed">
+                <p className="mt-3 text-sm md:text-[0.95rem] text-card-foreground/80 whitespace-pre-line leading-relaxed">
                   {e.description}
                 </p>
 

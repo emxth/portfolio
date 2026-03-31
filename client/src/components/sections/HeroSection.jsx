@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Braces, Code2, FileText } from "lucide-react";
 import api from "../../api/axios";
+import { toAssetUrl } from "../../api/url";
 
 export default function HeroSection() {
   const [profile, setProfile] = useState({
-    name: "",
-    role: "",
-    intro: "",
+    name: "Emith Arachchi",
+    role: "Full-Stack Software Developer",
+    intro:
+      "I design and build scalable web applications with clean architecture, beautiful UI, and practical product thinking.",
     image: "/profile-bw.jpg",
     cvUrl: "",
   });
-
-  const API_ORIGIN = import.meta.env.VITE_API_ORIGIN || "http://localhost:5000";
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -23,7 +23,6 @@ export default function HeroSection() {
           name: data?.name || prev.name,
           role: data?.role || prev.role,
           intro: data?.intro || prev.intro,
-          image: data?.image || prev.image, // if you later add profile image upload
           cvUrl: data?.cvUrl || "",
         }));
       } catch {
@@ -36,24 +35,23 @@ export default function HeroSection() {
   const scrollToAbout = () => {
     const el = document.querySelector("#about");
     if (!el) return;
-    const offset = 90;
-    const y = el.getBoundingClientRect().top + window.scrollY - offset;
+    const y = el.getBoundingClientRect().top + window.scrollY - 90;
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  const cvHref = profile.cvUrl ? `${API_ORIGIN}${profile.cvUrl}` : "";
+  const cvHref = toAssetUrl(profile.cvUrl);
+  const imageSrc = "/profile-bw.jpg";
 
   return (
     <section
       id="home"
-      className="relative overflow-hidden pt-24 md:pt-28 pb-14 md:pb-20"
+      className="relative pt-24 overflow-hidden md:pt-28 pb-14 md:pb-20"
       style={{
         background:
           "linear-gradient(120deg, hsl(var(--hero-gradient-from)), hsl(var(--hero-gradient-to)))",
       }}
     >
-      <div className="container grid lg:grid-cols-2 gap-10 items-center">
-        {/* LEFT CONTENT */}
+      <div className="container grid items-center gap-10 lg:grid-cols-2">
         <div className="relative z-10">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -72,7 +70,7 @@ export default function HeroSection() {
             className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold text-hero leading-[1.05] tracking-tight"
           >
             Hi, I’m{" "}
-            <span className="text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.20)]">
+            <span className="hero-name" data-text={profile.name}>
               {profile.name}
             </span>
           </motion.h1>
@@ -81,7 +79,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-3 text-lg md:text-xl text-hero/90 font-medium"
+            className="mt-3 text-lg font-medium md:text-xl text-hero/90"
           >
             {"<"}
             {profile.role}
@@ -92,20 +90,19 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55 }}
-            className="mt-5 max-w-xl text-hero/85 text-base md:text-lg"
+            className="max-w-xl mt-5 text-base text-hero/85 md:text-lg"
           >
             {profile.intro}
           </motion.p>
 
-          {/* keep as it is */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="mt-6 rounded-2xl glass shadow-soft p-4 md:p-5 text-sm md:text-base text-hero/90"
+            className="p-4 mt-6 text-sm rounded-2xl glass shadow-soft md:p-5 md:text-base text-hero/90"
           >
-            <p className="font-mono flex items-center gap-2">
-              <Braces className="h-4 w-4" />
+            <p className="flex items-center gap-2 font-mono">
+              <Braces className="w-4 h-4" />
               {'{ build: "fast", design: "clean", mindset: "product" }'}
             </p>
           </motion.div>
@@ -114,11 +111,11 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
+            className="flex flex-wrap items-center gap-3 mt-8"
           >
             <button
               onClick={scrollToAbout}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/70 text-slate-900 border border-slate-300/70 hover:bg-white transition cursor-pointer backdrop-blur shadow-soft font-semibold"
+              className="inline-flex items-center gap-2 px-6 py-3 font-semibold transition border rounded-full cursor-pointer group bg-white/70 text-slate-900 border-slate-300/70 hover:bg-white backdrop-blur shadow-soft"
             >
               Explore More
               <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5 animate-bounce" />
@@ -128,16 +125,15 @@ export default function HeroSection() {
               Contact
             </a>
 
-            {cvHref && (
+            {profile.cvUrl && (
               <a href={cvHref} target="_blank" rel="noreferrer" className="hero-btn-ghost">
-                <FileText className="h-4 w-4" />
+                <FileText className="w-4 h-4" />
                 View CV
               </a>
             )}
           </motion.div>
         </div>
 
-        {/* RIGHT IMAGE */}
         <motion.div
           initial={{ opacity: 0, x: 28 }}
           animate={{ opacity: 1, x: 0 }}
@@ -147,19 +143,15 @@ export default function HeroSection() {
           <div className="relative w-70 sm:w-85 md:w-97.5 lg:w-107.5">
             <div className="absolute -inset-4 rounded-[2.5rem] bg-white/20 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2.5rem] border border-white/25 shadow-2xl">
-              <img
-                src={profile.image}
-                alt={profile.name}
-                className="w-full h-105 md:h-125 object-cover grayscale contrast-[1.05]"
-              />
+              <img src={imageSrc} alt={profile.name} className="w-full h-105 md:h-125 object-cover grayscale contrast-[1.05]" />
             </div>
             <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] ring-1 ring-white/20" />
           </div>
         </motion.div>
       </div>
 
-      <div className="pointer-events-none absolute top-0 -left-30 w-85 h-85 bg-white/20 blur-3xl rounded-full" />
-      <div className="pointer-events-none absolute -bottom-20 -right-20 w-65 h-65 bg-sky-200/30 blur-3xl rounded-full" />
+      <div className="absolute top-0 rounded-full pointer-events-none -left-30 w-85 h-85 bg-white/20 blur-3xl" />
+      <div className="absolute rounded-full pointer-events-none -bottom-20 -right-20 w-65 h-65 bg-sky-200/30 blur-3xl" />
     </section>
   );
 }
