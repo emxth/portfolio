@@ -1,8 +1,22 @@
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
 
+const LEVELS = ["Beginner", "Intermediate", "Advanced"];
+const CATEGORIES = [
+  "General",
+  "Programming",
+  "Frontend",
+  "Backend",
+  "DevOps",
+  "Database",
+  "Data Processing",
+  "Tools",
+  "Concepts",
+];
+
 const initialSkillForm = {
   name: "",
+  icon: "",
   level: "",
   category: "General",
   visible: true,
@@ -16,7 +30,7 @@ export default function AdminSkillsSection() {
 
   const fetchSkills = async () => {
     const { data } = await api.get("/skills");
-    setSkills(data || []);
+    setSkills(Array.isArray(data) ? data : []);
   };
 
   useEffect(() => {
@@ -39,11 +53,20 @@ export default function AdminSkillsSection() {
   const submitSkill = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const payload = {
+      name: skillForm.name.trim(),
+      icon: skillForm.icon.trim(),
+      level: skillForm.level.trim(),
+      category: skillForm.category.trim() || "General",
+      visible: Boolean(skillForm.visible),
+    };
+
     try {
       if (editingSkillId) {
-        await api.put(`/skills/${editingSkillId}`, skillForm);
+        await api.put(`/skills/${editingSkillId}`, payload);
       } else {
-        await api.post("/skills", skillForm);
+        await api.post("/skills", payload);
       }
       await fetchSkills();
       resetSkillForm();
@@ -58,6 +81,7 @@ export default function AdminSkillsSection() {
     setEditingSkillId(s.id);
     setSkillForm({
       name: s.name || "",
+      icon: s.icon || "",
       level: s.level || "",
       category: s.category || "General",
       visible: s.visible !== false,
@@ -80,35 +104,38 @@ export default function AdminSkillsSection() {
       <form onSubmit={submitSkill} className="grid gap-3 p-4 border rounded-xl">
         <h2 className="text-xl font-semibold">{editingSkillId ? "Edit Skill" : "Add Skill"}</h2>
 
-        <input className="p-2 border rounded" name="name" placeholder="Skill name (React, Node.js...)" value={skillForm.name} onChange={onSkillChange} required />
-        
-        <select
+        <input
           className="p-2 border rounded"
-          name="level"
-          value={skillForm.level}
+          name="name"
+          placeholder="Skill name (React, Node.js...)"
+          value={skillForm.name}
           onChange={onSkillChange}
-        >
+          required
+        />
+
+        <input
+          className="p-2 border rounded"
+          name="icon"
+          placeholder="Icon slug (react, nodejs, javascript...)"
+          value={skillForm.icon}
+          onChange={onSkillChange}
+        />
+
+        <select className="p-2 border rounded" name="level" value={skillForm.level} onChange={onSkillChange}>
           <option value="">Select level</option>
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Advanced">Advanced</option>
+          {LEVELS.map((l) => (
+            <option key={l} value={l}>
+              {l}
+            </option>
+          ))}
         </select>
 
-        <select
-          className="p-2 border rounded"
-          name="category"
-          value={skillForm.category}
-          onChange={onSkillChange}
-        >
-          <option value="General">General</option>
-          <option value="Programming">Programming</option>
-          <option value="Frontend">Frontend</option>
-          <option value="Backend">Backend</option>
-          <option value="DevOps">DevOps</option>
-          <option value="Database">Database</option>
-          <option value="Data Processing">Data Processing</option>
-          <option value="Tools">Tools</option>
-          <option value="Concepts">Concepts</option>
+        <select className="p-2 border rounded" name="category" value={skillForm.category} onChange={onSkillChange}>
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
         </select>
 
         <label className="flex items-center gap-2">
@@ -133,6 +160,7 @@ export default function AdminSkillsSection() {
           <div key={s.id} className="flex items-start justify-between p-4 border rounded-xl">
             <div>
               <h3 className="font-semibold">{s.name}</h3>
+              <p className="text-sm text-gray-700">Icon: {s.icon || "-"}</p>
               <p className="text-sm text-gray-700">Level: {s.level || "-"}</p>
               <p className="text-sm text-gray-700">Category: {s.category || "-"}</p>
               <p className="text-sm text-gray-700">Visible: {s.visible ? "Yes" : "No"}</p>

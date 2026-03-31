@@ -547,6 +547,46 @@ hero-btn {
 }
 
 
+/* ===== Skills decorative icons (around content) ===== */
+.skill-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* a safe centered area where we avoid placing icons */
+.skill-decor-safe {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 18%;
+  bottom: 12%;
+  border-radius: 2rem;
+}
+
+.skill-decor-icon {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  opacity: 0.22; /* more visible than before */
+  filter: grayscale(1) drop-shadow(0 10px 26px hsl(var(--foreground) / 0.18));
+  transform: translateZ(0);
+}
+
+.dark .skill-decor-icon {
+  opacity: 0.26;
+  filter: grayscale(1) brightness(1.15) drop-shadow(0 10px 26px hsl(0 0% 0% / 0.35));
+}
+
+/* soft floating */
+@keyframes floaty2 {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+
 /* token utility aliases */
 .bg-background { background-color: hsl(var(--background)); }
 .text-foreground { color: hsl(var(--foreground)); }
