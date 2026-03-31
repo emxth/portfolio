@@ -2,14 +2,14 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
-import Home from "./pages/Home";
+import HomeBoot from "./pages/HomeBoot";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Public */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomeBoot />} />
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />
