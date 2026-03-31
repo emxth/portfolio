@@ -1,38 +1,28 @@
 [
   {
     "id": "8e54b655-b028-430d-8958-70ab29c88b3f",
-    "title": "Portfolio CMS",
-    "description": "Dynamic portfolio with admin",
+    "title": "Portfolio CMS Platform",
+    "description": "Built a production-ready full-stack portfolio CMS (Content Management System) with secure admin authentication, dynamic content management (projects, skills, experience, profile), file uploads (project images and CV), contact email delivery via Nodemailer + Gmail App Password, responsive UI, and Azure deployment with environment-based API configuration.",
     "techStack": [
       "React",
-      "Node",
-      "Express"
+      "Vite",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Node.js",
+      "Express",
+      "JWT",
+      "Multer",
+      "Nodemailer",
+      "REST API",
+      "Azure App Service",
+      "Azure Static Web Apps"
     ],
-    "githubUrl": "https://github.com/your/repo",
-    "liveUrl": "",
-    "image": "/uploads/1774459115049-670605425.png",
+    "githubUrl": "https://github.com/emxth/portfolio.git",
+    "liveUrl": "https://nice-mushroom-0dda2d500.2.azurestaticapps.net",
+    "image": "/uploads/1774933441202-387120566.png",
     "featured": true,
     "visible": true,
     "createdAt": "2026-03-23T15:58:05.513Z",
-    "updatedAt": "2026-03-25T17:18:35.071Z"
-  },
-  {
-    "id": "a6a44a03-4eb3-4fe3-9bfd-5020db72e55c",
-    "title": "Project 2",
-    "description": "Sample project with hallow world and beautiful frontend.",
-    "techStack": [
-      "React",
-      "MSSQL",
-      ".NET CORE MVC",
-      "Oracle",
-      "Python"
-    ],
-    "githubUrl": "https://github.com/your/repo",
-    "liveUrl": "https://www.google.com",
-    "image": "/uploads/1774459068889-948660297.png",
-    "featured": true,
-    "visible": true,
-    "createdAt": "2026-03-25T17:17:48.892Z",
-    "updatedAt": "2026-03-25T17:18:47.265Z"
+    "updatedAt": "2026-03-31T05:04:01.234Z"
   }
 ]
