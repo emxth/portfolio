@@ -101,9 +101,14 @@ export default function AdminSkillsSection() {
           onChange={onSkillChange}
         >
           <option value="General">General</option>
+          <option value="Programming">Programming</option>
           <option value="Frontend">Frontend</option>
           <option value="Backend">Backend</option>
           <option value="DevOps">DevOps</option>
+          <option value="Database">Database</option>
+          <option value="Data Processing">Data Processing</option>
+          <option value="Tools">Tools</option>
+          <option value="Concepts">Concepts</option>
         </select>
 
         <label className="flex items-center gap-2">

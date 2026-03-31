@@ -73,7 +73,7 @@ export default function SkillsSection() {
                     title={s.level ? `${s.name} • ${s.level}` : s.name}
                   >
                     <span className="text-sm font-medium">{s.name}</span>
-                    {s.level && <span className="badge-muted">• {s.level}</span>}
+                    {/* {s.level && <span className="badge-muted">• {s.level}</span>} */}
                   </motion.span>
                 ))}
               </div>
