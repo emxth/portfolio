@@ -14,13 +14,28 @@ const { notFound, errorHandler } = require("./middleware/error.middleware");
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://nice-mushroom-0dda2d500.2.azurestaticapps.net",
+];
+
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },
   })
 );
 
-app.use(cors());
+app.use(
+  cors({
+    origin(origin, cb) {
+      if (!origin) return cb(null, true); // postman/server-to-server
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      return cb(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
