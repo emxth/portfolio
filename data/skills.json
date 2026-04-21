@@ -325,6 +325,17 @@
     "category": "Database",
     "visible": true,
     "createdAt": "2026-03-31T06:46:47.937Z",
-    "updatedAt": "2026-03-31T06:46:47.937Z"
+    "updatedAt": "2026-04-07T06:02:22.336Z",
+    "icon": "sqlite"
+  },
+  {
+    "id": "38892b9f-072a-4e24-a771-637b4f7c7780",
+    "name": "Go",
+    "icon": "go",
+    "level": "Beginner",
+    "category": "Programming",
+    "visible": true,
+    "createdAt": "2026-04-07T06:07:42.036Z",
+    "updatedAt": "2026-04-07T06:07:42.036Z"
   }
 ]

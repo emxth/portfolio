@@ -1,72 +1,185 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
+const MAX_RETRIES = 5;
+const BASE_DELAY_MS = 600;
+const PROGRESS_TICK_MS = 120;
+const DONE_DELAY_MS = 280;
+
+const STEP_LABELS = [
+  "Initializing runtime…",
+  "Loading modules: ui, animations, theme…",
+  "Fetching portfolio data…",
+  "Applying content model…",
+  "Finalizing…",
+];
+
+const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const getRetryDelay = (attempt) => BASE_DELAY_MS + attempt * 250;
+
+async function fetchBootstrapData(signal) {
+  const endpoints = ["/profile", "/projects", "/skills", "/experience"];
+
+  const responses = await Promise.all(
+    endpoints.map((path) => fetch(`/api${path}`, { signal }))
+  );
+
+  responses.forEach((res) => {
+    if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+  });
+
+  const data = await Promise.all(responses.map((r) => r.json()));
+
+  return {
+    profile: data[0],
+    projects: data[1],
+    skills: data[2],
+    experience: data[3],
+  };
+}
+
+function getInitialThemeMode() {
+  if (typeof window === "undefined") return "light";
+  const stored = localStorage.getItem("theme");
+  if (stored === "dark" || stored === "light") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 export default function BootLoader({ onDone }) {
-  const steps = useMemo(
-    () => [
-      "Initializing runtime…",
-      "Loading modules: ui, animations, theme…",
-      "Fetching portfolio data…",
-      "Optimizing assets…",
-      "Finalizing…",
-    ],
-    []
-  );
-
   const [progress, setProgress] = useState(0);
   const [lineCount, setLineCount] = useState(1);
+  const [mode, setMode] = useState(getInitialThemeMode);
+
+  const isMounted = useRef(true);
+  const progressRef = useRef(0);
 
   useEffect(() => {
-    let raf = 0;
-    let start = performance.now();
+    if (typeof document === "undefined") return;
 
-    // total boot time (ms) – tune this
-    const DURATION = 1700;
+    const root = document.documentElement;
 
-    const tick = (t) => {
-      const elapsed = t - start;
-      const raw = elapsed / DURATION;
-
-      // slightly “technical” easing (fast -> slow -> finish)
-      const eased =
-        raw < 0.7 ? raw * 1.15 : 0.8 + (raw - 0.7) * 0.67;
-
-      const next = clamp(Math.round(eased * 100), 0, 100);
-      setProgress(next);
-
-      // reveal log lines gradually
-      const nextLines = clamp(
-        1 + Math.floor((next / 100) * steps.length),
-        1,
-        steps.length
-      );
-      setLineCount(nextLines);
-
-      if (next >= 100) {
-        // allow a tiny pause so user sees 100%
-        const to = setTimeout(() => onDone?.(), 350);
-        return () => clearTimeout(to);
-      }
-
-      raf = requestAnimationFrame(tick);
+    const syncMode = () => {
+      const isDark = root.classList.contains("dark");
+      setMode(isDark ? "dark" : "light");
     };
 
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [onDone, steps.length]);
+    syncMode();
+
+    const observer = new MutationObserver(syncMode);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    isMounted.current = true;
+    let progressTimer;
+    let doneTimer;
+    let controller;
+
+    const updateProgress = (val) => {
+      if (!isMounted.current) return;
+
+      const next = clamp(Math.round(val), 0, 100);
+      progressRef.current = next;
+      setProgress(next);
+
+      const lines = clamp(
+        1 + Math.floor((next / 100) * STEP_LABELS.length),
+        1,
+        STEP_LABELS.length
+      );
+      setLineCount(lines);
+    };
+
+    const startProgress = (attemptRef) => {
+      progressTimer = setInterval(() => {
+        if (!isMounted.current) return;
+
+        const cap = clamp(20 + attemptRef.current * 15, 20, 90);
+        const current = progressRef.current;
+        if (current >= cap) return;
+
+        const delta = current < cap - 20 ? 3 : current < cap - 10 ? 2 : 1;
+        updateProgress(current + delta);
+      }, PROGRESS_TICK_MS);
+    };
+
+    const stopProgress = () => {
+      if (progressTimer) clearInterval(progressTimer);
+    };
+
+    const run = async () => {
+      const attemptRef = { current: 0 };
+      startProgress(attemptRef);
+
+      for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+        attemptRef.current = attempt;
+        controller = new AbortController();
+
+        try {
+          const data = await fetchBootstrapData(controller.signal);
+
+          stopProgress();
+          updateProgress(100);
+
+          doneTimer = setTimeout(() => {
+            if (isMounted.current) onDone?.(data);
+          }, DONE_DELAY_MS);
+
+          return;
+        } catch {
+          if (!isMounted.current) return;
+
+          if (attempt === MAX_RETRIES - 1) {
+            stopProgress();
+            updateProgress(100);
+
+            doneTimer = setTimeout(() => {
+              if (isMounted.current) {
+                onDone?.({
+                  profile: null,
+                  projects: [],
+                  skills: [],
+                  experience: [],
+                  error: true,
+                });
+              }
+            }, DONE_DELAY_MS);
+
+            return;
+          }
+
+          updateProgress(progressRef.current + 5);
+          await sleep(getRetryDelay(attempt));
+        }
+      }
+    };
+
+    run();
+
+    return () => {
+      isMounted.current = false;
+      if (controller) controller.abort();
+      if (progressTimer) clearInterval(progressTimer);
+      if (doneTimer) clearTimeout(doneTimer);
+    };
+  }, [onDone]);
+
+  const currentLine = Math.min(lineCount - 1, STEP_LABELS.length - 1);
+  const latency = clamp(80 - progress, 12, 80);
 
   return (
-    <div className="boot">
+    <div className={`boot ${mode === "dark" ? "boot--dark" : "boot--light"}`}>
       <div className="boot-bg" />
 
       <motion.div
         initial={{ opacity: 0, y: 10, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
+        transition={{ duration: 0.3 }}
         className="boot-card"
       >
         <div className="boot-top">
@@ -79,26 +192,23 @@ export default function BootLoader({ onDone }) {
         <div className="boot-bar">
           <motion.div
             className="boot-bar-fill"
-            initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
-            transition={{ ease: "easeOut", duration: 0.18 }}
+            transition={{ duration: 0.2 }}
           />
         </div>
 
         <div className="boot-meta">
           <span>build: portfolio</span>
-          <span>mode: {document.documentElement.classList.contains("dark") ? "dark" : "light"}</span>
-          <span>latency: {Math.max(8, 42 - Math.floor(progress / 4))}ms</span>
+          <span>mode: {mode}</span>
+          <span>latency: {latency}ms</span>
         </div>
 
-        <div className="boot-terminal" aria-label="Loading log">
-          {steps.slice(0, lineCount).map((s, i) => (
-            <div key={i} className="boot-line">
+        <div className="boot-terminal">
+          {STEP_LABELS.slice(0, lineCount).map((s, i) => (
+            <div key={`${s}-${i}`} className="boot-line">
               <span className="boot-prompt">{">"}</span>
               <span className="boot-text">{s}</span>
-              {i === lineCount - 1 && progress < 100 && (
-                <span className="boot-cursor" />
-              )}
+              {i === currentLine && progress < 100 && <span className="boot-cursor" />}
             </div>
           ))}
         </div>
