@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-const MAX_RETRIES = 5;
-const BASE_DELAY_MS = 600;
+const MAX_RETRIES = 6;
+const BASE_DELAY_MS = 1500;
 const PROGRESS_TICK_MS = 120;
 const DONE_DELAY_MS = 280;
 
@@ -16,27 +16,28 @@ const STEP_LABELS = [
 
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const getRetryDelay = (attempt) => BASE_DELAY_MS + attempt * 250;
+const getRetryDelay = (attempt) =>
+  BASE_DELAY_MS * Math.pow(1.5, attempt);
 
 async function fetchBootstrapData(signal) {
+  // Step 1: Warm up backend
+  await fetch("/api/health", { signal }).catch(() => {});
+
+  // Optional small delay (important for Azure cold start)
+  await sleep(800);
+
   const endpoints = ["/profile", "/projects", "/skills", "/experience"];
 
-  const responses = await Promise.all(
-    endpoints.map((path) => fetch(`/api${path}`, { signal }))
-  );
+  // Step 2: Fetch sequentially (NOT parallel)
+  const result = {};
 
-  responses.forEach((res) => {
+  for (const path of endpoints) {
+    const res = await fetch(`/api${path}`, { signal });
     if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-  });
+    result[path.replace("/", "")] = await res.json();
+  }
 
-  const data = await Promise.all(responses.map((r) => r.json()));
-
-  return {
-    profile: data[0],
-    projects: data[1],
-    skills: data[2],
-    experience: data[3],
-  };
+  return result;
 }
 
 function getInitialThemeMode() {
